@@ -42,7 +42,7 @@
 </template>
 
 <script>
-import "./assets/stylesheets/main.css";
+import './assets/stylesheets/main.css';
 
 export default {
   data: () => ({

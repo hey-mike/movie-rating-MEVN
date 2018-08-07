@@ -1,12 +1,13 @@
-import Vue from 'vue'
-import Router from 'vue-router'
-import Home from '@/components/Home'
-import Contact from '@/components/Contact'
-import AddMovie from '@/components/AddMovie'
+import Vue from 'vue';
+import Router from 'vue-router';
+import Home from '@/components/Home';
+import Contact from '@/components/Contact';
+import AddMovie from '@/components/AddMovie';
 
-Vue.use(Router)
+Vue.use(Router);
 
 export default new Router({
+  mode: 'history',
   routes: [
     {
       path: '/',
@@ -24,4 +25,4 @@ export default new Router({
       component: AddMovie
     }
   ]
-})
+});
