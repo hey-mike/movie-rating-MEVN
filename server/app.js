@@ -9,7 +9,7 @@ const passport = require('passport');
 const passportJWT = require('passport-jwt');
 const ExtractJwt = passportJWT.ExtractJwt;
 const JwtStrategy = passportJWT.Strategy;
-const jwtOptions = {};
+const jwtOptions = {}
 jwtOptions.jwtFromRequest = ExtractJwt.fromAuthHeaderWithScheme('jwt');
 jwtOptions.secretOrKey = 'movieratingapplicationsecretkey';
 
@@ -21,28 +21,24 @@ app.use(cors());
 app.use(passport.initialize());
 
 //connect to mongodb
-mongoose
-  .connect(
-    'mongodb://localhost:27017/movie_rating_app',
-    function() {
-      console.log('Connection has been made');
-    }
-  )
-  .catch(err => {
-    console.error('App starting error:', err.stack);
-    process.exit(1);
-  });
-
-// Include controllers
-fs.readdirSync('controllers').forEach(function(file) {
-  if (file.substr(-3) == '.js') {
-    const route = require('./controllers/' + file);
-    route.controller(app);
-  }
+mongoose.connect('mongodb://localhost/movie_rating_app', function() {
+  console.log('Connection has been made');
+})
+.catch(err => {
+  console.error('App starting error:', err.stack);
+  process.exit(1);
 });
 
+// Include controllers
+fs.readdirSync("controllers").forEach(function (file) {
+  if(file.substr(-3) == ".js") {
+    const route = require("./controllers/" + file)
+    route.controller(app)
+  }
+})
+
 router.get('/', function(req, res) {
-  res.json({ message: 'API Initialized!' });
+  res.json({ message: 'API Initialized!'});
 });
 
 const port = process.env.API_PORT || 8081;
