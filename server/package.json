@@ -6,6 +6,7 @@
   "version": "1.0.0",
   "main": "app.js",
   "dependencies": {
+    "bcryptjs": "^2.4.3",
     "body-parser": "^1.18.3",
     "cors": "^2.8.4",
     "express": "^4.16.3",
@@ -13,9 +14,13 @@
     "mongoose": "^5.2.7",
     "morgan": "^1.9.0",
     "nodemon": "^1.18.3",
-    "passport": "^0.4.0"
+    "passport": "^0.4.0",
+    "passport-jwt": "^4.0.0"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "eslint-plugin-prettier": "^2.6.2",
+    "prettier": "^1.14.0"
+  },
   "scripts": {
     "start": "nodemon app.js",
     "test": "echo \"Error: no test specified\" && exit 1"

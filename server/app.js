@@ -23,7 +23,7 @@ app.use(passport.initialize());
 //connect to mongodb
 mongoose
   .connect(
-    'mongodb://localhost/movie_rating_app',
+    'mongodb://localhost:27017/movie_rating_app',
     function() {
       console.log('Connection has been made');
     }
