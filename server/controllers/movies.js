@@ -1,4 +1,5 @@
 const MovieSchema = require('../models/Movie.js');
+const UserModel = require('../models/User.js');
 const Rating = require('../models/Rating.js');
 const passport = require('passport');
 const passportJWT = require('passport-jwt');
@@ -12,14 +13,11 @@ jwtOptions.secretOrKey = 'thisisthesecretkey';
 module.exports.controller = (app) => {
   passport.use(new JWTStrategy(jwtOptions, function (jwtPayload, cb) {
       //find the user in db if needed
-      return UserModel.findOneById(jwtPayload.id)
-          .then(user => {
-              return cb(null, user);
-          })
-          .catch(err => {
-              return cb(err);
-          });
-  }));
+      return UserModel.findById(jwtPayload.id,(error, user) => {
+        if (error) return cb(err);
+        return cb(null, user);
+      })
+    }));
 
   // fetch all movies
   app.get('/movies', passport.authenticate('jwt', { session: false }), (req, res) => {
