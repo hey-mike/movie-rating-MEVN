@@ -9,8 +9,8 @@ const config = require('./config/Config');
 const passport = require('passport');
 const serveStatic = require('serve-static');
 const history = require('connect-history-api-fallback');
-require('./config/passport')(passport);
 
+require('./config/passport')(passport);
 const app = express();
 const router = express.Router();
 app.use(morgan('combined'));
@@ -42,7 +42,7 @@ mongoose
   });
 
 // Include controllers
-fs.readdirSync('src/controllers').forEach(function(file) {
+fs.readdirSync('./src/controllers').forEach(function(file) {
   if (file.substr(-3) == '.js') {
     const route = require('./controllers/' + file);
     route.controller(app);
@@ -76,7 +76,7 @@ router.get('/', function(req, res) {
 });
 
 const port = process.env.API_PORT || 8081;
-app.use('/', router);
+app.use('/test', router);
 app.listen(port, function() {
   console.log(`api running on port ${port}`);
 });
