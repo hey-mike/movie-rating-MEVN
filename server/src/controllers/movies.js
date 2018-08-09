@@ -1,40 +1,40 @@
 const MovieSchema = require('../models/Movie.js');
-const UserModel = require('../models/User.js');
 const Rating = require('../models/Rating.js');
 const passport = require('passport');
-const passportJWT = require('passport-jwt');
 
-const JWTStrategy   = passportJWT.Strategy;
-const ExtractJwt = passportJWT.ExtractJwt;
-const jwtOptions = {};
-jwtOptions.jwtFromRequest = ExtractJwt.fromAuthHeaderWithScheme('jwt');
-jwtOptions.secretOrKey = 'thisisthesecretkey';
-
-module.exports.controller = (app) => {
-  passport.use(new JWTStrategy(jwtOptions, function (jwtPayload, cb) {
-      //find the user in db if needed
-      return UserModel.findById(jwtPayload.id,(error, user) => {
-        if (error) return cb(err);
-        return cb(null, user);
-      })
-    }));
-
+module.exports.controller = app => {
   // fetch all movies
-  app.get('/movies', passport.authenticate('jwt', { session: false }), (req, res) => {
-    MovieSchema.find({}, 'name description release_year genre', (error, movies) => {
-      if (error) { console.log(error); }
-      res.send({
-        movies,
-      });
-    });
-  });
+  app.get(
+    '/movies',
+    passport.authenticate('jwt', { session: false }),
+    (req, res) => {
+      MovieSchema.find(
+        {},
+        'name description release_year genre',
+        (error, movies) => {
+          if (error) {
+            console.log(error);
+          }
+          res.send({
+            movies
+          });
+        }
+      );
+    }
+  );
 
   // fetch a single movie
   app.get('/api/movies/:id', (req, res) => {
-    MovieSchema.findById(req.params.id, 'name description release_year genre', (error, movie) => {
-      if (error) { console.error(error); }
-      res.send(movie);
-    });
+    MovieSchema.findById(
+      req.params.id,
+      'name description release_year genre',
+      (error, movie) => {
+        if (error) {
+          console.error(error);
+        }
+        res.send(movie);
+      }
+    );
   });
 
   // rate a movie
@@ -42,15 +42,17 @@ module.exports.controller = (app) => {
     const newRating = new Rating({
       movie_id: req.params.id,
       user_id: req.body.user_id,
-      rate: req.body.rate,
+      rate: req.body.rate
     });
 
     newRating.save((error, rating) => {
-      if (error) { console.log(error); }
+      if (error) {
+        console.log(error);
+      }
       res.send({
         movie_id: rating.movie_id,
         user_id: rating.user_id,
-        rate: rating.rate,
+        rate: rating.rate
       });
     });
   });
@@ -61,11 +63,13 @@ module.exports.controller = (app) => {
       name: req.body.name,
       description: req.body.description,
       release_year: req.body.release_year,
-      genre: req.body.genre,
+      genre: req.body.genre
     });
 
     newMovie.save((error, movie) => {
-      if (error) { console.log(error); }
+      if (error) {
+        console.log(error);
+      }
       res.send(movie);
     });
   });
