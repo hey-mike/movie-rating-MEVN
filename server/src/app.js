@@ -48,7 +48,7 @@ fs.readdirSync('./src/controllers').forEach(function(file) {
     route.controller(app);
   }
 });
-app.use(history());
+// app.use(history());
 app.use(serveStatic(__dirname + '/dist'));
 
 router.get('/api/current_user', isLoggedIn, function(req, res) {
@@ -76,7 +76,7 @@ router.get('/', function(req, res) {
 });
 
 const port = process.env.API_PORT || 8081;
-app.use('/test', router);
+app.use('/', router);
 app.listen(port, function() {
   console.log(`api running on port ${port}`);
 });
