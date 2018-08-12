@@ -26,4 +26,17 @@ module.exports.controller = app => {
       res.redirect('/');
     }
   );
+
+  app.get(
+    '/login/google',
+    passport.authenticate('google', { scope: ['email'] })
+  );
+
+  app.get(
+    '/login/google/return',
+    passport.authenticate('google', { failureRedirect: '/login' }),
+    (req, res) => {
+      res.redirect('/');
+    }
+  );
 };

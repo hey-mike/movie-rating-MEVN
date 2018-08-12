@@ -1,16 +1,15 @@
 const User = require('../../models/User');
 const config = require('../../config/Config');
-const Strategy = require('passport-facebook').Strategy;
+const GoogleStrategy = require('passport-google-oauth20').Strategy;
 
 module.exports = passport => {
-  // facebook strategy
+  // google strategy
   passport.use(
-    new Strategy(
+    new GoogleStrategy(
       {
-        clientID: config.FACEBOOK_APP_ID,
-        clientSecret: config.FACEBOOK_APP_SECRET,
-        callbackURL: '/login/facebook/return',
-        profileFields: ['id', 'displayName', 'email']
+        clientID: config.GOOGLE_APP_ID,
+        clientSecret: config.GOOGLE_APP_SECRET,
+        callbackURL: '/login/google/return'
       },
       (accessToken, refreshToken, profile, cb) => {
         const email = profile.emails[0].value;

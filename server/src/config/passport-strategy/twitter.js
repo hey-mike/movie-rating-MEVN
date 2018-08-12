@@ -1,5 +1,5 @@
-const User = require('../models/User.js');
-const config = require('./../config/Config');
+const User = require('../../models/User.js');
+const config = require('../../config/Config');
 const Strategy = require('passport-twitter').Strategy;
 
 module.exports = passport => {
