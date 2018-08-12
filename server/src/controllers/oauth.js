@@ -39,4 +39,13 @@ module.exports.controller = app => {
       res.redirect('/');
     }
   );
+  app.get('/login/linkedin', passport.authenticate('linkedin'));
+
+  app.get(
+    '/login/linkedin/return',
+    passport.authenticate('linkedin', { failureRedirect: '/login' }),
+    (req, res) => {
+      res.redirect('/');
+    }
+  );
 };
