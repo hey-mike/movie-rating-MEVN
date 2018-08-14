@@ -80,3 +80,5 @@ app.use('/', router);
 app.listen(port, function() {
   console.log(`api running on port ${port}`);
 });
+
+module.exports = app;
